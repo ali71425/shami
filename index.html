@@ -2,115 +2,135 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تموينات الجسر الشامي للمنتجات السورية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تموينات الجسر الشامي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-green: #004d3d; /* اللون الأخضر للهوية */
-            --gold-yellow: #ffcc00;  /* اللون الأصفر الذهبي */
+            --primary-green: #004d3d;
+            --gold-yellow: #ffcc00;
             --white: #ffffff;
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --bg-light: #f8f8f8;
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f0f0f0;
             color: #333;
+            overflow: hidden; /* يمنع التمرير لضمان ظهور العناصر في صفحة واحدة */
         }
 
         .container {
-            max-width: 600px;
+            max-width: 450px;
             margin: 0 auto;
             background: var(--white);
-            min-height: 100vh;
-            box-shadow: var(--shadow);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
 
-        /* قسم الهيدر */
+        /* الهيدر */
         .header-img {
             width: 100%;
-            display: block;
+            height: 14vh;
+            object-fit: contain;
+            background: var(--primary-green);
         }
 
-        /* محتوى الصفحة */
+        /* السلايدر المطور لـ 15 صورة */
+        .slider-wrapper {
+            width: 100%;
+            height: 20vh; /* ارتفاع متناسق للجوال */
+            overflow: hidden;
+            position: relative;
+            border-bottom: 2px solid var(--gold-yellow);
+            background: #eee;
+        }
+
+        .slider-track {
+            display: flex;
+            /* عرض المسار بناءً على 15 صورة مكررة مرتين (30 صورة) */
+            width: calc(3000%); 
+            height: 100%;
+            animation: scroll-fast 60s linear infinite;
+        }
+
+        .slider-track img {
+            width: calc(100% / 30); /* كل صورة تأخذ جزءاً من الـ 3000% */
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll-fast {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50%); } /* التحرك لنصف عرض الصور المكررة */
+        }
+
+        /* المحتوى */
         .content {
-            padding: 30px 20px;
+            padding: 10px 20px;
             text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly; /* توزيع العناصر بشكل متوازن */
         }
 
         h1 {
             color: var(--primary-green);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 1.3rem;
         }
 
         .description {
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
             color: #555;
-            margin-bottom: 40px;
+            line-height: 1.5;
+            padding: 0 5px;
         }
 
-        /* الأزرار */
         .btn-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 10px;
         }
 
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 18px;
-            border-radius: 50px;
+            padding: 14px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .btn:active {
-            transform: scale(0.95);
-        }
-
-        /* زر واتساب */
-        .btn-whatsapp {
-            background-color: #25D366;
+            font-size: 1rem;
             color: white;
+            transition: 0.3s;
         }
 
-        /* زر جوجل ماب */
-        .btn-maps {
-            background-color: #4285F4;
-            color: white;
-        }
+        .btn i { margin-left: 10px; font-size: 1.3rem; }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-maps { background-color: #4285F4; }
 
-        .btn i {
-            margin-left: 10px;
-            font-size: 1.5rem;
-        }
+        .btn:active { transform: scale(0.97); }
 
-        /* تذييل الصفحة */
         .footer {
-            margin-top: 50px;
-            padding-bottom: 30px;
-            font-size: 0.9rem;
-            color: #888;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #bbb;
         }
 
-        /* تأثيرات التحويم للشاشات الكبيرة */
-        @media (min-width: 768px) {
-            .btn:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            }
+        /* تعديلات للشاشات الصغيرة */
+        @media (max-height: 600px) {
+            h1 { font-size: 1.1rem; }
+            .description { font-size: 0.8rem; }
+            .slider-wrapper { height: 16vh; }
         }
     </style>
 </head>
@@ -119,27 +139,60 @@
 <div class="container">
     <img src="header.png" alt="الجسر الشامي" class="header-img">
 
+    <div class="slider-wrapper">
+        <div class="slider-track">
+            <img src="1497c2c8-cc62-4195-a45b-0b84162e056b.JPG">
+            <img src="19db552d-109b-4906-8a37-185778e35fe9.JPG">
+            <img src="24de47ef-66cc-46b2-8519-ff1490a8d970.JPG">
+            <img src="2ad588a5-8888-49eb-98bc-8324121c2277.JPG">
+            <img src="3047226a-841e-4ebe-bbd6-c918f784fa82.JPG">
+            <img src="32b479d6-32b6-41da-a750-d0794b7aafc6.JPG">
+            <img src="5dc703d2-7601-42f5-ab79-1cd729b2dd83.JPG">
+            <img src="5de915ef-102a-4734-af50-07049820b316.JPG">
+            <img src="84801633-6e4f-4f91-8f27-5b75699965af.JPG">
+            <img src="88664398-95ca-495c-981f-98cf883f0acd.JPG">
+            <img src="8ff54d8b-d586-4df2-9cea-90179ab7c81b.JPG">
+            <img src="9694acfe-d3f0-4ae3-844f-e4ff274b1b21.JPG">
+            <img src="d04c0359-c7a5-4f50-8c8d-eedf057c0589.JPG">
+            <img src="f251b851-2b0b-4699-ab5c-7fb7391cf9a0.JPG">
+            <img src="fcc2e3b5-6771-4d23-b6af-52417f31fd17.JPG">
+            <img src="1497c2c8-cc62-4195-a45b-0b84162e056b.JPG">
+            <img src="19db552d-109b-4906-8a37-185778e35fe9.JPG">
+            <img src="24de47ef-66cc-46b2-8519-ff1490a8d970.JPG">
+            <img src="2ad588a5-8888-49eb-98bc-8324121c2277.JPG">
+            <img src="3047226a-841e-4ebe-bbd6-c918f784fa82.JPG">
+            <img src="32b479d6-32b6-41da-a750-d0794b7aafc6.JPG">
+            <img src="5dc703d2-7601-42f5-ab79-1cd729b2dd83.JPG">
+            <img src="5de915ef-102a-4734-af50-07049820b316.JPG">
+            <img src="84801633-6e4f-4f91-8f27-5b75699965af.JPG">
+            <img src="88664398-95ca-495c-981f-98cf883f0acd.JPG">
+            <img src="8ff54d8b-d586-4df2-9cea-90179ab7c81b.JPG">
+            <img src="9694acfe-d3f0-4ae3-844f-e4ff274b1b21.JPG">
+            <img src="d04c0359-c7a5-4f50-8c8d-eedf057c0589.JPG">
+            <img src="f251b851-2b0b-4699-ab5c-7fb7391cf9a0.JPG">
+            <img src="fcc2e3b5-6771-4d23-b6af-52417f31fd17.JPG">
+        </div>
+    </div>
+
     <div class="content">
         <h1>أهلاً بكم في الجسر الشامي</h1>
         <p class="description">
-            عنوانكم الأول للمنتجات السورية الأصيلة في المملكة. نوفر لكم أجود أنواع الألبان، الأجبان، والتموينات الشامية بنكهة البيت الدمشقي العريق.
+            أجود أنواع الألبان، والأجبان، والمنتجات السورية بنكهة البيت الدمشقي العريق في قلب المملكة.
         </p>
 
         <div class="btn-container">
             <a href="https://wa.me/966537211244" target="_blank" class="btn btn-whatsapp">
-                <i class="fab fa-whatsapp"></i>
-                تواصل معنا عبر واتساب
+                <i class="fab fa-whatsapp"></i> تواصل معنا عبر واتساب
             </a>
 
-            <a href="https://maps.app.goo.gl/K9RYeUYnEJoveHVCA?g_st=ic" target="_blank" class="btn btn-maps">
-                <i class="fas fa-map-marker-alt"></i>
-                موقعنا على خرائط جوجل
+            <a href="https://maps.google.com/?q=الجسر+الشامي" target="_blank" class="btn btn-maps">
+                <i class="fas fa-map-marker-alt"></i> موقعنا على الخريطة
             </a>
         </div>
+    </div>
 
-        <div class="footer">
-            <p>جميع الحقوق محفوظة &copy; 2024 تموينات الجسر الشامي</p>
-        </div>
+    <div class="footer">
+        <p>حقوق النشر © 2026 تموينات الجسر الشامي</p>
     </div>
 </div>
 
