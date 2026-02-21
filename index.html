@@ -18,53 +18,48 @@
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #000; /* خلفية داكنة خارج الحاوية لإبراز التصميم */
             color: #333;
-            overflow: hidden; /* يضمن بقاء المحتوى في صفحة واحدة دون تمرير */
+            overflow: hidden;
         }
 
         .container {
             max-width: 450px;
             margin: 0 auto;
             background: var(--white);
-            height: 100vh; /* ملء كامل طول الشاشة */
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            position: relative;
         }
 
-        /* الهيدر - 14% من طول الشاشة */
+        /* الهيدر - 13% */
         .header-img {
             width: 100%;
-            height: 14vh;
+            height: 13vh;
             object-fit: contain;
             background: var(--primary-green);
         }
 
-        /* السلايدر - 18% من طول الشاشة (تقليله لرفع الأزرار) */
+        /* السلايدر - 18% */
         .slider-wrapper {
             width: 100%;
             height: 18vh; 
             overflow: hidden;
-            position: relative;
-            border-bottom: 2px solid var(--gold-yellow);
-            background: #ffffff;
+            border-bottom: 3px solid var(--gold-yellow);
         }
 
         .slider-track {
             display: flex;
             width: max-content;
             height: 100%;
-            animation: scroll-left 45s linear infinite;
+            animation: scroll-left 40s linear infinite;
         }
 
         .slider-track img {
             height: 100%;
             width: auto;
             object-fit: contain;
-            flex-shrink: 0;
-            margin: 0;
-            padding: 0;
         }
 
         @keyframes scroll-left {
@@ -72,72 +67,111 @@
             100% { transform: translateX(50%); }
         }
 
-        /* منطقة المحتوى والأزرار - تشغل باقي المساحة */
+        /* منطقة المحتوى */
         .content {
-            padding: 5px 20px;
-            text-align: center;
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly; /* توزيع متساوٍ للعناصر لرفع الأزرار */
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            gap: 15px; /* مسافة متناسقة */
         }
 
-        h1 {
-            color: var(--primary-green);
-            font-size: 1.25rem;
-            margin-top: 5px;
+        /* تأثير لمعة النص الترحيبي */
+        .welcome-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            background: linear-gradient(to right, #004d3d 20%, #ffcc00 40%, #ffcc00 60%, #004d3d 80%);
+            background-size: 200% auto;
+            color: #000;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 3s linear infinite;
+            margin-bottom: -5px; /* تقريب السطر التالي */
+        }
+
+        @keyframes textShine {
+            to { background-position: 200% center; }
         }
 
         .description {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #555;
-            line-height: 1.3;
-            padding: 0 10px;
+            text-align: center;
+            line-height: 1.4;
+            max-width: 90%;
         }
 
-        /* حاوية الأزرار - تم تقليل المسافات لضمان الظهور */
-        .btn-container {
+        /* إطار الأزرار المتحرك (اللمعة التي تلف حول الزر) */
+        .btn-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 280px;
+            padding: 3px; /* مساحة الإطار المتحرك */
+            border-radius: 15px;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 5px;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .btn-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 400%;
+            background: conic-gradient(transparent, var(--gold-yellow), transparent 30%);
+            animation: rotateBorder 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
             padding: 14px;
             border-radius: 12px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: white;
-            transition: 0.3s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: inherit; /* ليظهر لون الزر الأصلي */
+            position: relative;
+            z-index: 2;
         }
 
-        .btn i { margin-left: 10px; font-size: 1.2rem; }
         .btn-whatsapp { background-color: #25D366; }
         .btn-maps { background-color: #4285F4; }
 
-        .btn:active { transform: scale(0.97); opacity: 0.9; }
+        .btn i { margin-left: 10px; font-size: 1.3rem; }
 
-        /* الحقوق - تم تقليل الحجم لضمان الظهور في أسفل الشاشة */
+        /* التذييل (Footer) - ثابت وواضح */
         .footer {
-            padding: 8px;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #999;
-            background: #fafafa;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
             border-top: 1px solid #eee;
+            font-size: 0.75rem;
+            color: #888;
         }
 
-        /* توافق إضافي للشاشات الصغيرة جداً */
-        @media (max-height: 600px) {
-            h1 { font-size: 1.1rem; }
-            .description { font-size: 0.8rem; }
-            .btn { padding: 10px; font-size: 0.9rem; }
+        /* تعديلات ذكية للشاشات الصغيرة */
+        @media (max-height: 650px) {
+            .welcome-text { font-size: 1.5rem; }
+            .description { font-size: 0.85rem; }
+            .header-img { height: 11vh; }
             .slider-wrapper { height: 16vh; }
         }
     </style>
@@ -183,16 +217,18 @@
     </div>
 
     <div class="content">
-        <h1>أهلاً بكم في الجسر الشامي</h1>
+        <h1 class="welcome-text">أهلاً بكم في الجسر الشامي</h1>
         <p class="description">
             نقدم لكم أجود أنواع الألبان والأجبان والمنتجات السورية العريقة بأعلى معايير الجودة.
         </p>
 
-        <div class="btn-container">
+        <div class="btn-wrapper">
             <a href="https://wa.me/966537211244" target="_blank" class="btn btn-whatsapp">
                 <i class="fab fa-whatsapp"></i> تواصل معنا عبر واتساب
             </a>
+        </div>
 
+        <div class="btn-wrapper">
             <a href="https://maps.app.goo.gl/YQ2W6fgQFcQtLgfi6" target="_blank" class="btn btn-maps">
                 <i class="fas fa-map-marker-alt"></i> موقعنا على الخريطة
             </a>
